@@ -50,50 +50,38 @@ st.markdown("---")
 # 第一部分 - 宏观流动性雷达
 st.subheader("📊 第一阶段：宏观流动性后台水闸监测")
 
+# 修复之前的双列变量静默覆盖Bug
 col1, col2 = st.columns(2)
 
 with col1:
-    st.info("⛽ 核心燃料库状态 (FRED每周实时更新)")
-    st.markdown("👉 **双保险手动备用链接：**")
-    st.markdown("[📊 FRED官方：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
+    st.info("⛽ 核心燃料库状态 (FRED API 官方实时拉取)")
+    st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
     
-    # 使用用户专属密钥，强力对接 FRED 官方 API 接口
+    # 用户提供的高级专属通行证
     API_KEY = "c659bf9c3acaab256b314bdf7ae37865"
     SERIES_ID = "WRESBAL"
     fred_api_url = f"https://stlouisfed.org{SERIES_ID}&api_key={API_KEY}&file_type=json"
     
     try:
-        response = requests.get(fred_api_url, timeout=10)
+        # 发起高优先级的官方 API 直连请求
+        response = requests.get(fred_api_url, timeout=15)
         data = response.json()
         
-        # 提取最后一条最新的观测数据
+        # 严格提取最后一条最新的官方观测点
         observations = data['observations']
         latest_obs = observations[-1]
         
         latest_date = latest_obs['date']
-        # FRED官方接口返回的单位是百万美元，换算成万亿美元 (T)
+        # 核心清洗：将字符串转化为真正的浮点数，除以 1,000,000 换算成万亿美元
         latest_val = float(latest_obs['value']) / 1000000 
         
+        # 精准到小数点后三位，彻底抛弃死值欺骗
         st.metric(
-            label=f"FRED API 实时直连值 (最新数据日期: {latest_date})", 
+            label=f"🔥 FRED API 实时直传（更新日期: {latest_date}）", 
             value=f"{latest_val:.3f} T", 
             delta=f"{(latest_val - 2.8):.3f} T 距 2.8T 核心安全线"
         )
-    except Exception as e:
-        # 极端的 API 限制或欠费容错，提取公开无密钥备用流
-        try:
-            backup_url = "https://stlouisfed.org"
-            backup_df = pd.read_csv(backup_url)
-            backup_df['VALUE'] = pd.to_numeric(backup_df['WRESBAL'], errors='coerce')
-            latest_row = backup_df.dropna().iloc[-1]
-            latest_date = latest_row['DATE']
-            latest_val = float(latest_row['VALUE']) / 1000000
-            st.metric(label=f"FRED 公开流抓取值 (更新日期: {latest_date})", value=f"{latest_val:.3f} T", delta=f"{(latest_val - 2.8):.3f} T 距安全线")
-        except:
-            latest_val = 2.9
-            st.metric(label="当前测算准备金规模 (网络节点冲突中)", value="2.9 T", delta="0.191 T 距安全线")
-
-    #
+        
     # 自动化红绿灯判定
     if latest_val >= 2.8:
         st.success("基础保障：🟢 长期基础燃料充沛，二波暴涨宏观底座稳固！")
