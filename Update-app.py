@@ -90,15 +90,15 @@ st.caption("请点击下方跳转，进入后在手机浏览器下拉页面盯�
 c1, c2, c3 = st.columns(3)
 with c1:
     st.markdown("### 🥈 CMX白银期货 (SI)")
-    st.markdown("[👉 一键跳转：SLV 期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 一键跳转：SLV 期权偏度图](https://marketchameleon.com/Overview/SLV/VolatilitySkew/OTMSpread)")
 
 with c2:
     st.markdown("### 🧱 CMX高级铜 (HG)")
-    st.markdown("[👉 一键跳转：CPER 铜期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 一键跳转：CPER 铜期权偏度图](https://marketchameleon.com/Overview/CPER/VolatilitySkew/OTMSpreadm)")
 
 with c3:
     st.markdown("### ⛏️ 铜业强手池 (FCX)")
-    st.markdown("[👉 一键跳转：FCX 巨头期权偏度](https://marketchameleon.com)")
+    st.markdown("[👉 一键跳转：FCX 巨头期权偏度](https://marketchameleon.com/Overview/FCX/VolatilitySkew/OTMSpread)")
 
 st.markdown("---")
 st.markdown("💡 **系统风控红线**：在大盘未出现期权偏度（Skew）转负的数学铁证前，任何高位震荡期的反弹都可能是“假突破”。严禁使用超高杠杆在第一阶段洗盘期盲目猜底，防止在主升浪开启前半小时被插针强平。")
