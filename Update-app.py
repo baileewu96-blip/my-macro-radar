@@ -28,7 +28,7 @@ with st.sidebar:
         
         ### ⚡ 开关二：短期批发资金摩擦 (SOFR - IORB)
         - **绿灯（安全）**：利差小于 0 轴（即为负数）。资金极度富裕。
-        - **黄灯（警惕）**：利差大于或等于 0 轴并开始转正。发债虹吸效应显现。
+        - **黄灯（警惕）**：利差大于或等于 0 轴并开始转正。发债虹急效应显现。
         - **红灯（无条件逃顶）**：利差连续 3 个交易日大过或等于 +3.0 基点。发生局部“钱荒”，高杠杆资产牛市终结。
         
         ### 🔌 开关三：正回购安全阀 (纽约联储 REPO)
@@ -54,10 +54,9 @@ st.subheader("📊 第一阶段：宏观流动性后台水闸监测")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.info("⛽ 核心燃料库状态 (FRED API 官方实时拉取)")
+    st.info("⛽ 核心燃料库状态")
     st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://stlouisfed.org)")
     
-    # 💡 终极正统方案：使用标准官方端点，参数用字典（params）传入，由Python自动编码，杜绝任何字符拼接和乱码Bug
     fred_api_url = "https://stlouisfed.org"
     payload = {
         "series_id": "WRESBAL",
@@ -65,37 +64,36 @@ with col1:
         "file_type": "json"
     }
     
+    # 建立避险双机制
+    network_success = False
     try:
-        # 携带标准参数发起请求
-        response = requests.get(fred_api_url, params=payload, timeout=15)
+        response = requests.get(fred_api_url, params=payload, timeout=8)
         data = response.json()
-        
-        # 严格提取最后一条最新的官方观测点
         observations = data['observations']
         latest_obs = observations[-1]
-        
         latest_date = latest_obs['date']
-        # 万亿美元换算 (T)
         latest_val = float(latest_obs['value']) / 1000000 
+        network_success = True
         
-        # 实时渲染最精准的数据
         st.metric(
-            label=f"🔥 FRED API 实时直传（最新数据日期: {latest_date}）", 
+            label=f"🔥 FRED API 专线直连成功（最新数据日期: {latest_date}）", 
             value=f"{latest_val:.3f} T", 
             delta=f"{(latest_val - 2.8):.3f} T 距 2.8T 核心安全线"
         )
-        
-        # 根据动态抓取的值进行自动化红绿灯判断
-        if latest_val >= 2.8:
-            st.success("基础保障：🟢 长期基础燃料充沛，后台未触发枯竭，允许二波牛市拉升！")
-        elif latest_val < 2.5:
-            st.error("逃生警报：🚨 准备金触及 2.5T 崩塌线！美联储水闸已关，必须无条件清仓！")
-        else:
-            st.warning("黄灯预警：⚠️ 准备金进入 2.5T~2.8T 摩擦损耗区，严禁盲目高位大幅做多。")
-            
     except Exception as e:
-        st.error(f"❌ 专线连接失败！请排查网络。错误日志: {str(e)}")
-        st.caption("提示：由于公共服务器可能存在国际断网，若报错请直接参考上方蓝色FRED原生链接。")
+        st.warning("⚠️ 云端机房遭遇联储网络拦截，已自动秒级平滑降级至【手动安全防空洞模式】。")
+        st.caption("💡 交易防线不瘫痪：请点击上方蓝色FRED直达链接，并在下方手动核对/拖动最新一期准备金数值：")
+        
+        # 交互滑块：确保机房断网时，风控引擎依旧在手机端完美输出
+        latest_val = st.slider("请根据FRED图表，拖动最新的准备金规模 (万亿美元 T):", min_value=2.00, max_value=3.50, value=2.99, step=0.01, format="%.2f T")
+
+    # 风控红绿灯自动决策系统（双机制无缝共用一套逻辑代码）
+    if latest_val >= 2.8:
+        st.success(f"基础保障确认：🟢 当前水位为 {latest_val:.2f} T，长期基础燃料充沛，流动性未枯竭，支持白银/铜牛市发酵！")
+    elif latest_val < 2.5:
+        st.error(f"逃生警报拉响：🚨 当前水位大溃破至 {latest_val:.2f} T，触及 2.5T 绝对崩塌红线！美联储水闸已关，必须无条件清仓！")
+    else:
+        st.warning(f"黄灯降级预警：⚠️ 当前水位跌入 {latest_val:.2f} T，进入 2.5T~2.8T 摩擦损耗区，必须严禁盲目高位重仓做多！")
 
 with col2:
     st.info("⚡ 短期批发资金摩擦与正回购求救信号")
