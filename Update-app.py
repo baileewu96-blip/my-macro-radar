@@ -59,7 +59,7 @@ with col1:
     
     # 动态抓取 FRED 准备金数据
     try:
-        fred_url = "https://stlouisfed.org"
+        fred_url = "https://fred.stlouisfed.org/series/WRESBAL"
         fred_df = pd.read_csv(fred_url)
         fred_df['VALUE'] = pd.to_numeric(fred_df['WRESBAL'], errors='coerce')
         fred_df = fred_df.dropna()
@@ -74,8 +74,8 @@ with col1:
             delta=f"{(latest_val - 2.8):.3f} T 距 2.8T 核心安全线"
         )
     except:
-        latest_val = 2.95
-        st.metric(label="当前测算准备金规模 (网络缓冲中)", value="2.95 T", delta="0.15 T 距安全线")
+        latest_val = 2.9
+        st.metric(label="当前测算准备金规模 (网络缓冲中)", value="2.9 T", delta="0.191 T 距安全线")
         st.caption("提示：若因网络波动未刷新，请点击上方蓝色链接直接查看。")
 
     # 自动化红绿灯判定
