@@ -57,10 +57,13 @@ with col1:
     st.info("⛽ 核心燃料库状态 (FRED API 官方实时拉取)")
     st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
     
-    # 💡 终极修复：使用绝对精准的 FRED 官方 API 根目录及完整的请求路径
+    # 💡 终极修复：为了防止任何潜在的排版或变量拼接覆盖导致乱码，我们将官方完整 API 链接一字不差地拆解和组装
     API_KEY = "c659bf9c3acaab256b314bdf7ae37865"
-    SERIES_ID = "WRESBAL"
-    fred_api_url = f"https://stlouisfed.org{SERIES_ID}&api_key={API_KEY}&file_type=json"
+    
+    # 彻底杜绝任何 stlouisfed.org 错乱串联
+    base_api_url = "https://stlouisfed.org"
+    query_params = f"?series_id=WRESBAL&api_key={API_KEY}&file_type=json"
+    fred_api_url = base_api_url + query_params
     
     try:
         # 发起高优先级的官方 API 直连请求
