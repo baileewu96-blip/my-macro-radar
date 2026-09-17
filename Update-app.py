@@ -62,7 +62,7 @@ with col1:
     # 用户提供的高级专属通行证
     API_KEY = "c659bf9c3acaab256b314bdf7ae37865"
     SERIES_ID = "WRESBAL"
-    fred_api_url = f"https://stlouisfed.org/{SERIES_ID}&api_key={API_KEY}&file_type=json"
+    fred_api_url = f"https://stlouisfed.org?{SERIES_ID}&api_key={API_KEY}&file_type=json"
     
     try:
         # 发起高优先级的官方 API 直连请求
