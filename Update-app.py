@@ -60,7 +60,7 @@ with col1:
     fred_api_url = "https://stlouisfed.org"
     payload = {
         "series_id": "WRESBAL",
-        "api_key": "c659bf9c3acaab256b314bdf7ae37865",
+        "api_key": "DELETED_FOR_SECURITY_REASONS",
         "file_type": "json"
     }
     
