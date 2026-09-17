@@ -90,8 +90,8 @@ with col1:
             latest_val = float(latest_row['VALUE']) / 1000000
             st.metric(label=f"FRED 公开流抓取值 (更新日期: {latest_date})", value=f"{latest_val:.3f} T", delta=f"{(latest_val - 2.8):.3f} T 距安全线")
         except:
-            latest_val = 2.991
-            st.metric(label="当前测算准备金规模 (网络节点冲突中)", value="2.991 T", delta="0.191 T 距安全线")
+            latest_val = 2.9
+            st.metric(label="当前测算准备金规模 (网络节点冲突中)", value="2.9 T", delta="0.191 T 距安全线")
 
     #
     # 自动化红绿灯判定
