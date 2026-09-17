@@ -140,8 +140,8 @@ with c3:
 
 st.markdown("---")
 st.markdown("💡 **系统风控红线**：在大盘未出现期权偏度（Skew）转负的数学铁证前，任何高位震荡期的反弹都可能是“假突破”。严禁使用超高杠杆在第一阶段洗盘期盲目猜底，防止在主升浪开启前半小时被插针强平。")
-    st.markdown("👉 **请点击下方官方一键直达链接查看今日利差曲线：**")
-    st.markdown("[📊 FRED官方一键直达：SOFR - IORB 实时利差曲线](https://stlouisfed.org)")
+st.markdown("👉 **请点击下方官方一键直达链接查看今日利差曲线：**")
+st.markdown("[📊 FRED官方一键直达：SOFR - IORB 实时利差曲线](https://stlouisfed.org)")
     
     # 交互滑块：让用户每天扫一眼图表后输入数值，网页在手机端会自动做出研判
     user_sofr = st.slider("请根据FRED图表，拖动今日最新的利差数值 (基点 %):", min_value=-0.10, max_value=0.10, value=-0.03, step=0.01)
