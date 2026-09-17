@@ -55,7 +55,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.info("⛽ 核心燃料库状态")
-    st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://stlouisfed.org)")
+    st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
     
     fred_api_url = "https://stlouisfed.org"
     payload = {
@@ -101,12 +101,12 @@ with col2:
     
     c_sofr, c_iorb = st.columns(2)
     with c_sofr:
-        st.markdown("[📊 1. 查真实融资成本 (SOFR)](https://stlouisfed.org)")
+        st.markdown("[📊 1. 查真实融资成本 (SOFR)](https://fred.stlouisfed.org/series/SOFR)")
     with c_iorb:
-        st.markdown("[📊 2. 查央行利率红线 (IORB)](https://stlouisfed.org)")
+        st.markdown("[📊 2. 查央行利率红线 (IORB)](https://fred.stlouisfed.org/series/IORB)")
         
     st.markdown("👉 **盯死纽约联储前线正回购窗口 (SRF 最终安全阀)：**")
-    st.markdown("[🔍 纽约联储官方：REPO CHART 每日正回购操作结果页](https://newyorkfed.org)")
+    st.markdown("[🔍 纽约联储官方：REPO CHART 每日正回购操作结果页](https://www.newyorkfed.org/markets/desk-operations/repo)")
     st.caption("💡 战术心法：常备回购工具（SRF）每天在该窗口运行。若表格中接受金额（Amount Accepted）突增至 100 亿美元以上，说明系统开始钱荒！")
 
     st.markdown("**🧮 手机交互快速研判资金面**")
@@ -129,7 +129,7 @@ st.markdown("---")
 # 第二部分 - CME官方期权点火雷达
 st.subheader("🔥 第二阶段：CME 芝商所官方原版期权点火雷达")
 st.markdown("👉 **每日核心看盘设定**：请在 CME 官网顶部将 `Hi-Lo Range` 切换为 **1Y 或 Max**，`Layout` 保持 **Grouped List**。直接将看到的最新数据填入下方：")
-st.markdown("[📊 官方一键直达：CME Group 全球期权 CVOL 核心数据看板](https://cmegroup.com)")
+st.markdown("[📊 官方一键直达：CME Group 全球期权 CVOL 核心数据看板](https://www.cmegroup.com/market-data/cme-group-benchmark-administration/cme-group-volatility-indexes.html)")
 
 c_silver, c_copper = st.columns(2)
 
@@ -177,11 +177,11 @@ st.markdown("---")
 st.subheader("🌟 第三阶段：美股衍生品跨资产交叉验证 (选看)")
 o1, o2, o3 = st.columns(3)
 with o1:
-    st.markdown("[👉 美股 SLV（白银ETF）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 SLV（白银ETF）期权偏度图](https://marketchameleon.com/Overview/SLV/VolatilitySkew/OTMSpread)")
 with o2:
-    st.markdown("[👉 美股 CPER（纯铜ETF）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 CPER（纯铜ETF）期权偏度图](https://marketchameleon.com/Overview/CPER/VolatilitySkew/OTMSpreadm)")
 with o3:
-    st.markdown("[👉 美股 FCX（铜业巨头）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 FCX（铜业巨头）期权偏度图](https://marketchameleon.com/Overview/FCX/VolatilitySkew/OTMSpread)")
 
 st.markdown("---")
 st.markdown("💡 **系统交易生命线**：在第一阶段震荡洗盘期，大盘频繁出现高频插针清洗杠杆。在第一阶段和第二阶段信号未达成共振前，绝对不盲目猜底，直到期权数据给出数学铁证！")
