@@ -16,7 +16,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.info("⛽ 核心燃料库状态 (周更)")
     st.markdown("👉 **请通过下方 FRED 官方链接检查最新的准备金规模：**")
-    st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://stlouisfed.org)")
+    st.markdown("[📊 FRED官方一键直达：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
     
     # 获取免密公共源
     try:
