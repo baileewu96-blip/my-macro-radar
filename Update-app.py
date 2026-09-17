@@ -143,14 +143,14 @@ st.markdown("💡 **系统风控红线**：在大盘未出现期权偏度（Skew
 st.markdown("👉 **请点击下方官方一键直达链接查看今日利差曲线：**")
 st.markdown("[📊 FRED官方一键直达：SOFR - IORB 实时利差曲线](https://stlouisfed.org)")
     
-    # 交互滑块：让用户每天扫一眼图表后输入数值，网页在手机端会自动做出研判
-    user_sofr = st.slider("请根据FRED图表，拖动今日最新的利差数值 (基点 %):", min_value=-0.10, max_value=0.10, value=-0.03, step=0.01)
-    if user_sofr >= 0.03:
-        st.error("研判结果：🚨 钱荒！利差连续突破 3 个基点。商品高杠杆仓位建议立刻清仓逃顶。")
-    elif user_sofr >= 0.00:
-        st.warning("研判结果：⚠️ 警告！批发资金开始紧张，9月财政部发债虹吸效应显现，不宜追高。")
-    else:
-        st.success("研判结果：🟢 安全！后台管网通畅。可以安心执行右侧点火战术。")
+# 交互滑块：让用户每天扫一眼图表后输入数值，网页在手机端会自动做出研判
+user_sofr = st.slider("请根据FRED图表，拖动今日最新的利差数值 (基点 %):", min_value=-0.10, max_value=0.10, value=-0.03, step=0.01)
+if user_sofr >= 0.03:
+    st.error("研判结果：🚨 钱荒！利差连续突破 3 个基点。商品高杠杆仓位建议立刻清仓逃顶。")
+elif user_sofr >= 0.00:
+    st.warning("研判结果：⚠️ 警告！批发资金开始紧张，9月财政部发债虹吸效应显现，不宜追高。")
+else:
+    st.success("研判结果：🟢 安全！后台管网通畅。可以安心执行右侧点火战术。")
 
 st.markdown("---")
 
