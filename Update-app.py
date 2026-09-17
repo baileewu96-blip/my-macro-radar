@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import requests
 
 # 页面基础配置
 st.set_page_config(page_title="银铜流动性与CME期权监控仪表盘", layout="wide", initial_sidebar_state="expanded")
