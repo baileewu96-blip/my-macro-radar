@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # 页面基础配置
-st.set_page_config(page_title="银铜流动性与CME期权终极指挥部V5", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="银铜流动性与CME期权监控仪表盘", layout="wide", initial_sidebar_state="expanded")
 
 # ==================== 侧边栏：核心概念与终极红绿灯判断基准 ====================
 with st.sidebar:
@@ -15,31 +15,31 @@ with st.sidebar:
         
         **💡 两大核心实战用途：**
         1. **判定洗盘是否接近尾声（量缩价稳）**：随着高位宽幅震荡洗盘的推进，若发现 **CVOL 的值开始持续萎缩、掉头向下**，说明高频大额插针的恶性获利盘已经洗净，进入了经典的“波动率压实”阶段。**CVOL 越低，蓄势越充分，二波点火成功率越高。**
-        2. **防止高杠杆爆仓（杠杆管理工具）**：只要 CVOL 挂在 **45 以上**（如白银常态），意味着日内随时可以没有任何理由地暴跌或暴涨 3%~5%（恶意插针）。**此时必须强行压低期货杠杆倍数（预留 500% 以上保证金）**，否则极易在二波点火前夕被日内插针强平。
+        2. **防止高杠杆爆仓（杠杆管理工具）**：只要 CVOL 挂在 **45 以上**（如白银常态），意味着日内随时可以没有任何理由地暴跌或暴涨 3% 至 5%（恶意插针）。**此时必须强行压低期货杠杆倍数（预留 500% 以上保证金）**，否则极易在二波点火前夕被日内插针强平。
         """)
 
     with st.expander("🔌 核心红绿灯判断基准（全量红线）", expanded=False):
         st.markdown("""
         ### ⛽ 开关一：美联储准备金 (WRESBAL)
-        - **绿灯（可做多）**：\(\ge 2.8\) 万亿美元。大盘油箱安全，流动性充沛。
-        - **黄灯（严禁追高）**：\(2.5 \sim 2.8\) 万亿美元之间。进入缩表消耗期，商品脆性增加。
-        - **红灯（无条件清仓逃顶）**：< 2.5 万亿美元。流动性红线跌破，24 小时内无脑全额平仓多单！
+        - **绿灯（可做多）**：大于或等于 2.8 万亿美元。大盘油箱安全，流动性充沛。
+        - **黄灯（严禁追高）**：在 2.5 至 2.8 万亿美元之间。进入缩表消耗期，商品脆性增加。
+        - **红灯（无条件清仓逃顶）**：小于 2.5 万亿美元。流动性红线跌破，24 小时内无脑全额平仓多单！
         
         ### ⚡ 开关二：短期批发资金摩擦 (SOFR - IORB)
-        - **绿灯（安全）**：利差 < 0 轴（即为负数，如今日）。资金极度富裕。
-        - **黄灯（警惕）**：利差 \(\ge 0\) 轴并开始转正。发债虹吸效应显现。
-        - **红灯（无条件逃顶）**：利差连续 3 个交易日 \(\ge +3.0\) 基点。发生局部“钱荒”，高杠杆资产牛市终结。
+        - **绿灯（安全）**：利差小于 0 轴（即为负数，如今日）。资金极度富裕。
+        - **黄灯（警惕）**：利差大于或等于 0 轴并开始转正。发债虹吸效应显现。
+        - **红灯（无条件逃顶）**：利差连续 3 个交易日大于或等于 +3.0 基点。发生局部“钱荒”，高杠杆资产牛市终结。
         
         ### 🔌 开关三：正回购安全阀 (纽约联储 REPO)
         - **绿灯（正常）**：接受金额 (Amount Accepted) 绝对等于 0。
         - **红灯（无条件逃顶）**：接受金额连续 3 天冲破 **100 亿美元**。安全阀被动启动，管网爆裂，多单立刻离场。
         
         ### 🥈 开关四：CME 白银期权点火 (SIVL SKEW)
-        - **等待期**：\(\ge +10.0\)。虚值 Call 太贵，散户扎堆，极易遭遇日内插针清洗。
-        - **🔥 进场冲锋号**：SKEW 快速下砸至 \(\le 0.0\) 轴（变成负数）。看涨情绪清洗干净或爆发超级 Gamma 逼空，右侧立刻重仓切入。
+        - **等待期**：大于或等于 +10.0。虚值 Call 太贵，散户扎堆，极易遭遇日内插针清洗。
+        - **🔥 进场冲锋号**：SKEW 快速下砸至小于或等于 0.0 轴（变成负数）。看涨情绪清洗干净或爆发超级 Gamma 逼空，右侧立刻重仓切入。
         
         ### 🧱 开关五：CME 高级铜期权点火 (HGVL SKEW)
-        - **等待期**：> 0.0。散户日常跟风和产业套保噪音，不操作。
+        - **等待期**：大于 0.0。散户日常跟风和产业套保噪音，不操作。
         - **🔥 进场冲锋号**：SKEW 跌破零轴变成负数（哪怕是 -0.1）。跨国大游资彻底击穿实体矿山套保卖 Call 墙，右侧立刻重仓杀入。
         """)
 
@@ -55,7 +55,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.info("⛽ 核心燃料库状态 (FRED每周实时更新)")
     st.markdown("👉 **双保险手动备用链接：**")
-    st.markdown("[📊 FRED官方：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://stlouisfed.org)")
+    st.markdown("[📊 FRED官方：美联储准备金周度趋势 H.4.1 (WRESBAL)](https://fred.stlouisfed.org/series/WRESBAL)")
     
     # 动态抓取 FRED 准备金数据
     try:
@@ -84,7 +84,7 @@ with col1:
     elif latest_val < 2.5:
         st.error("逃生警报：🚨 准备金跌破 2.5T 生命线！后台流动性已关，多单必须无条件全额清仓！")
     else:
-        st.warning("黄灯预警：⚠️ 准备金进入 2.5T~2.8T 摩擦消耗区，高位重仓需极度谨慎。")
+        st.warning("黄灯预警：⚠️ 准备金进入 2.5T 至 2.8T 摩擦消耗区，高位重仓需极度谨慎。")
 
 with col2:
     st.info("⚡ 短期批发资金摩擦与正回购求救信号")
@@ -92,12 +92,12 @@ with col2:
     
     c_sofr, c_iorb = st.columns(2)
     with c_sofr:
-        st.markdown("[📊 1. 查真实融资成本 (SOFR)](https://stlouisfed.org)")
+        st.markdown("[📊 1. 查真实融资成本 (SOFR)](https://fred.stlouisfed.org/series/SOFR)")
     with c_iorb:
-        st.markdown("[📊 2. 查央行利率红线 (IORB)](https://stlouisfed.org)")
+        st.markdown("[📊 2. 查央行利率红线 (IORB)](https://fred.stlouisfed.org/series/IORB)")
         
     st.markdown("👉 **盯死纽约联储前线正回购窗口 (SRF 最终安全阀)：**")
-    st.markdown("[🔍 纽约联储官方：REPO CHART 每日正回购操作结果页](https://newyorkfed.org)")
+    st.markdown("[🔍 纽约联储官方：REPO CHART 每日正回购操作结果页](https://www.newyorkfed.org/markets/desk-operations/repo)")
     st.caption("💡 核心功课：常备回购工具（SRF）每天在该窗口运行。若表格中接受金额（Amount Accepted）突增至 100 亿美元以上，说明系统开始钱荒！")
 
     st.markdown("**🧮 手机交互快速研判资金面**")
@@ -120,7 +120,7 @@ st.markdown("---")
 # 第二部分 - CME官方期权点火雷达
 st.subheader("🔥 第二阶段：CME 芝商所官方原版期权点火雷达")
 st.markdown("👉 **每日核心看盘设定**：请在 CME 官网顶部将 `Hi-Lo Range` 切换为 **1Y 或 Max**，`Layout` 保持 **Grouped List**。直接将看到的最新数据填入下方：")
-st.markdown("[📊 官方一键直达：CME Group 全球期权 CVOL 核心数据看板](https://cmegroup.com)")
+st.markdown("[📊 官方一键直达：CME Group 全球期权 CVOL 核心数据看板](https://www.cmegroup.com/market-data/cme-group-benchmark-administration/cme-group-volatility-indexes.html)")
 
 c_silver, c_copper = st.columns(2)
 
@@ -133,7 +133,7 @@ with c_silver:
     
     # 联动自动化风控判定 (CVOL高杠杆风险判定)
     if si_cvol >= 45.0:
-        st.warning(f"⚠️ 风险提示：当前白银 CVOL 为 {si_cvol:.2f}，属于中高波动率，日内极易恶意插针 3%-5% 清洗散户。做 CMX 期货时必须压低杠杆，预留 500% 以上保证金缓冲垫！")
+        st.warning(f"⚠️ 风险提示：当前白银 CVOL 为 {si_cvol:.2f}，属于中高波动率，日内极易恶意插针 3% 至 5% 清洗散户。做 CMX 期货时必须压低杠杆，预留 500% 以上保证金缓冲垫！")
     else:
         st.info(f"ℹ️ 提示：当前白银 CVOL 为 {si_cvol:.2f}，处于波动率压实期。若 SKEW 触发，点火成功率极高。")
         
@@ -172,11 +172,11 @@ st.markdown("---")
 st.subheader("🌟 第三阶段：美股衍生品跨资产交叉验证 (选看)")
 c3, c4, c5 = st.columns(3)
 with c3:
-    st.markdown("[👉 美股 SLV（白银ETF）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 SLV（白银ETF）期权偏度图](https://marketchameleon.com/Overview/SLV/VolatilitySkew/OTMSpread)")
 with c4:
-    st.markdown("[👉 美股 CPER（纯铜ETF）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 CPER（纯铜ETF）期权偏度图](https://marketchameleon.com/Overview/CPER/VolatilitySkew/OTMSpread)")
 with c5:
-    st.markdown("[👉 美股 FCX（铜业巨头）期权偏度图](https://marketchameleon.com)")
+    st.markdown("[👉 美股 FCX（铜业巨头）期权偏度图](https://marketchameleon.com/Overview/FCX/VolatilitySkew/OTMSpread)")
 
 st.markdown("---")
 st.markdown("💡 **系统交易生命线**：在第一阶段震荡洗盘期，大盘频繁出现高频插针清洗杠杆。在第一阶段和第二阶段信号未达成共振前，绝对不盲目猜底，直到期权数据给出数学铁证！")
