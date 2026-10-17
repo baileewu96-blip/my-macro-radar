@@ -135,41 +135,40 @@ c_silver, c_copper = st.columns(2)
 
 with c_silver:
     st.markdown("### 🥈 CMX白银期货 (SI) 决策罗盘")
+    st.caption("🔍 白银常年大于0（因散户极爱买Call赌暴涨，UpVar天然被高估）。不要死等转负！要看它从狂热超载区垂直砸回 **+2 到 +5** 的绝对历史地板价支撑带。横盘死寂数日后，若右侧突然放量向上拔大阳线，就是 Gamma 逼空启动的瞬间。")
+    
     si_cvol = st.number_input("输入今日最新白银 CVOL 波动率读数:", value=48.04, step=0.1, format="%.2f")
-    si_skew = st.number_input("输入今日最新白银 SKEW 偏度读数:", value=12.59, step=0.1, format="%.2f")
-    si_upvar = st.number_input("输入今日最新白银 UpVar 读数:", value=53.92, step=0.1, format="%.2f")
-    si_dnvar = st.number_input("输入今日最新白银 DnVar 读数:", value=41.33, step=0.1, format="%.2f")
+    si_skew = st.number_input("输入今日最新白银 SKEW 偏度读数（CME官方: UpVar - DnVar）:", value=12.59, step=0.1, format="%.2f")
+    
     
     if si_cvol >= 45.0:
         st.warning(f"⚠️ 风险提示：当前白银 CVOL 为 {si_cvol:.2f}，属于中高波动率，日内极易恶意插针 3% 至 5% 清洗散户。做 CMX 期货时必须压低杠杆，预留 500% 以上保证金缓冲垫！")
     else:
         st.info(f"ℹ️ 提示：当前白银 CVOL 为 {si_cvol:.2f}，处于波动率压实期。若 SKEW 触发，点火成功率极高。")
         
-    if si_skew <= 0.0 or (si_upvar <= si_dnvar):
-        st.success("白银信号：🔥 触发二波启动点火！SKEW 砸破零轴转负，看涨情绪反向倒挂，做市商正被迫扫货，右侧多单立即进场！")
-    elif si_skew > 10.0:
-        st.error("白银信号：❌ 狂热洗盘区。SKEW 挂在 +10 以上高位，追高散户密集。继续保持空仓等待，切勿盲目猜底。")
+    if si_skew >= 15.0:
+        st.error(f"白银信号：❌ 散户极度狂热区 (CME Skew: {si_skew:.2f})。虚值看涨 Call 严重超载。主力正磨刀霍霍，日内极易高频恶意插针清洗多头杠杆！必须空仓等待消肿。")
+    elif si_skew <= 3.0:
+        st.success(f"白银信号：🔥 进入黄金狙击点火带 (CME Skew: {si_skew:.2f})！追高筹码洗净，看涨 Call 价格正式回归历史地板压实区。重要配合：若此时盘中伴随期货放量向上拉大阳线打破死寂，说明二波 Gamma 逼空右侧正式打响，多单立刻右手重仓切入！")
     else:
-        st.warning("白银信号：⏳ 蓄势洗盘中。SKEW 正在向 0 轴回落，继续保持战略耐心。")
+        st.warning(f"白银信号：⏳ 常态震荡洗盘中 (CME Skew: {si_skew:.2f})。看涨期权虚高溢价正在向历史低位压实区间逐步回落，主力正在通过横盘频繁针刺折磨多头弱手，继续保持战略耐心。")
+
 
 with c_copper:
     st.markdown("### 🧱 CMX高级铜期货 (HG) 决策罗盘")
-    cp_cvol = st.number_input("输入今日最新高级铜 CVOL 波动率读数:", value=28.02, step=0.1, format="%.2f")
-    cp_skew = st.number_input("输入今日最新高级铜 SKEW 偏度读数:", value=4.76, step=0.1, format="%.2f")
-    cp_upvar = st.number_input("输入今日最新高级铜 UpVar 读数:", value=30.30, step=0.1, format="%.2f")
-    cp_dnvar = st.number_input("输入今日最新高级铜 DnVar 读数:", value=25.55, step=0.1, format="%.2f")
+    st.caption("🔍 铜是纯血工业老大哥，期权锁死由矿山和冶炼厂卖Call墙主导，历史中轴极低。**当铜 Skew 跌破 +1 甚至是砸穿 0 轴变成负数（-1到-5）时**，说明实体套保盘被吓退，进入罕见狙击带。右侧一旦强行收复并放量冲破 0 轴，就是终极反攻号。")
     
-    if cp_cvol >= 35.0:
-        st.warning(f"⚠️ 风险提示：当前铜 CVOL 为 {cp_cvol:.2f} 处于偏高风险状态，严防宏观发债引起的剧烈波动。")
+    cp_cvol = st.number_input("输入今日最新高级铜 CVOL 波动率读数:", value=28.02, step=0.1, format="%.2f")
+    cp_skew = st.number_input("输入今日最新高级铜 SKEW 偏度读数（CME官方: UpVar - DnVar）:", value=4.76, step=0.1, format="%.2f")
+    
+    # 刚性校准
+    if cp_skew >= 6.0:
+        st.error(f"高级铜信号：❌ 诱多情绪过热区 (CME Skew: {cp_skew:.2f})。散户追高杂波密集，正撞上实体矿山套保卖压大墙，极其容易遭遇重锤，拒绝任何做多操作。")
+    elif cp_skew <= 0.8:
+        st.success(f"高级铜信号：🔥 爆发超级逼空令 (CME Skew: {cp_skew:.2f})！铜 Skew 已降至极限冰点压实带（或已转负）。重要配合：右侧一旦发现大单向上点火，铜价强行重新收复并冲破 0 轴飙升，最陡峭的主升浪即刻开启，多单全线冲锋！")
     else:
-        st.info(f"ℹ️ 提示：当前铜 CVOL 为 {cp_cvol:.2f}，属于正常工业合理资产震荡波幅。")
-        
-    if cp_skew <= 0.0:
-        st.success("高级铜信号：🔥 触发超级逼空令！铜 SKEW 彻底转负，大游资买盘彻底压倒了产业套保卖 Call 盘，右侧多单冲锋！")
-    elif cp_skew <= 3.0:
-        st.warning("高级铜信号：⏳ 进入黄金狙击观察带。SKEW 已逼近零轴（过滤掉日常波动），大资金可能正在暗中收集筹码，随时准备切入。")
-    else:
-        st.error("高级铜信号：❌ 纯属散户日常跟风杂波。SKEW 挂在常态化正数区间，继续过滤噪音，保持空仓等待。")
+        st.warning(f"高级铜信号：⏳ 进入黄金狙击观察带 (CME Skew: {cp_skew:.2f})。上行溢价正在健康收缩，多头不坚定筹码被逐步出清，静待数据压实到地板极限。")
+
 
 st.markdown("---")
 
